@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <h2>Cancel Reservation</h2>
+            <p>Are you sure you want to cancel your reservation for {{ reservation.maison.titre }}?</p>
+            <p><strong>Check-in:</strong> {{ reservation.date_debut }}</p>
+            <p><strong>Check-out:</strong> {{ reservation.date_fin }}</p>
+            
+            <form method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Confirm Cancellation</button>
+                <a href="{% url 'my_reservations' %}" class="btn btn-secondary">Back</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

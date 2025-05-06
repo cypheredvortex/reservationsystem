@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2 class="mb-4">Available Houses</h2>
+    <div class="row">
+        {% for house in houses %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">{{ house.titre }}</h5>
+                    <p class="card-text">{{ house.description|truncatewords:30 }}</p>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-map-marker-alt"></i> {{ house.adresse }}</li>
+                        <li><i class="fas fa-euro-sign"></i> {{ house.prix_par_nuit }} per night</li>
+                    </ul>
+                    {% if house.disponible %}
+                        <a href="{% url 'create_reservation' house.id %}" class="btn btn-custom">Book Now</a>
+                    {% else %}
+                        <button class="btn btn-secondary" disabled>Not Available</button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info">
+                No houses available at the moment.
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

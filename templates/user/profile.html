@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title mb-4">Profile</h2>
+                    <div class="row">
+                        <!-- Personal Info -->
+                        <div class="col-md-6">
+                            <h4>Personal Information</h4>
+                            <table class="table">
+                                <tr>
+                                    <th>Username:</th>
+                                    <td>{{ user.username }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Full Name:</th>
+                                    <td>{{ user.first_name }} {{ user.last_name }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Email:</th>
+                                    <td>{{ user.email }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Role:</th>
+                                    <td>{{ user.userprofile.get_role_display }}</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <!-- Account Statistics -->
+                        <div class="col-md-6">
+                            <h4>Account Statistics</h4>
+                            {% if role == 'client' %}
+                                <table class="table">
+                                    <tr>
+                                        <th>Total Reservations:</th>
+                                        <td>{{ total_reservations }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Active Reservations:</th>
+                                        <td>{{ active_reservations }}</td>
+                                    </tr>
+                                </table>
+                            {% elif role == 'proprietaire' %}
+                                <table class="table">
+                                    <tr>
+                                        <th>Properties Listed:</th>
+                                        <td>{{ total_properties }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Active Listings:</th>
+                                        <td>{{ active_properties }}</td>
+                                    </tr>
+                                </table>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- Navigation -->
+                    <div class="text-center mt-4">
+                        <a href="{% url 'home' %}" class="btn btn-primary">Return to Home</a>
+                        {% if role == 'client' %}
+                            <a href="{% url 'my_reservations' %}" class="btn btn-outline-primary">My Reservations</a>
+                        {% elif role == 'proprietaire' %}
+                            <a href="{% url 'my_houses' %}" class="btn btn-outline-primary">My Properties</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

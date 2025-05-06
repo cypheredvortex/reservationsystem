@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2 class="mb-4">My Reservations</h2>
+    <div class="row">
+        {% for reservation in reservations %}
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ reservation.maison.titre }}</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-calendar-alt"></i> From: {{ reservation.date_debut }}</li>
+                        <li><i class="fas fa-calendar-check"></i> To: {{ reservation.date_fin }}</li>
+                        <li><i class="fas fa-euro-sign"></i> Total: {{ reservation.maison.prix_par_nuit }} per night</li>
+                        <li>
+                            <i class="fas fa-info-circle"></i> Status: 
+                            <span class="badge {% if reservation.statut == 'confirmée' %}bg-success{% elif reservation.statut == 'en_attente' %}bg-warning{% else %}bg-danger{% endif %}">
+                                {{ reservation.statut }}
+                            </span>
+                        </li>
+                    </ul>
+                    {% if reservation.statut != 'annulée' %}
+                    <div class="btn-group">
+                        <a href="{% url 'cancel_reservation' reservation.id %}" class="btn btn-danger"
+                           onclick="return confirm('Are you sure you want to cancel this reservation?')">
+                            <i class="fas fa-times"></i> Cancel Reservation
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info">
+                You don't have any reservations yet. 
+                <a href="{% url 'house_list' %}" class="alert-link">Browse available houses</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

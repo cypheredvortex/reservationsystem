@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title">{{ house.titre }}</h2>
+                    <p class="card-text">{{ house.description }}</p>
+                    <p><strong>Address:</strong> {{ house.adresse }}</p>
+                    <p><strong>Price per night:</strong> ${{ house.prix_par_nuit }}</p>
+                    <p><strong>Status:</strong> {% if house.disponible %}Available{% else %}Not Available{% endif %}</p>
+                    
+                    {% if user.is_authenticated and user.userprofile.role == 'client' and house.disponible %}
+                    <a href="{% url 'create_reservation' house.id %}" class="btn btn-primary">Make Reservation</a>
+                    {% endif %}
+                    
+                    <a href="{% url 'house_list' %}" class="btn btn-secondary">Back to List</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
