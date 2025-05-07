@@ -9,7 +9,9 @@ from reservation.models import Reservation
 # Create your views here.
 @login_required
 def process_payment(request, reservation_id):
-    reservation = get_object_or_404(Reservation, id=reservation_id, utilisateur=request.user)
+    # Get the user's profile first
+    user_profile = request.user.userprofile
+    reservation = get_object_or_404(Reservation, id=reservation_id, utilisateur=user_profile)
     
     # Check if payment already exists
     existing_payment = Paiement.objects.filter(reservation_id=reservation_id).first()
