@@ -2,36 +2,30 @@
 
 {% block content %}
 <div class="container">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2>My Properties</h2>
-        <a href="{% url 'add_house' %}" class="btn btn-custom">
-            <i class="fas fa-plus"></i> Add New Property
-        </a>
-    </div>
-
+    <h2 class="mb-4">My Properties</h2>
+    <a href="{% url 'add_house' %}" class="btn btn-primary mb-4">Add New Property</a>
     <div class="row">
         {% for house in houses %}
-        <div class="col-md-6 mb-4">
-            <div class="card">
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                {% if house.image %}
+                    <img src="{{ house.image.url }}" class="card-img-top" alt="{{ house.titre }}" style="height: 200px; object-fit: cover;">
+                {% else %}
+                    <img src="/static/images/default-house.jpg" class="card-img-top" alt="Default house image" style="height: 200px; object-fit: cover;">
+                {% endif %}
                 <div class="card-body">
                     <h5 class="card-title">{{ house.titre }}</h5>
                     <p class="card-text">{{ house.description|truncatewords:30 }}</p>
                     <ul class="list-unstyled">
                         <li><i class="fas fa-map-marker-alt"></i> {{ house.adresse }}</li>
                         <li><i class="fas fa-euro-sign"></i> {{ house.prix_par_nuit }} per night</li>
-                        <li>
-                            <i class="fas fa-circle {% if house.disponible %}text-success{% else %}text-danger{% endif %}"></i>
-                            {{ house.disponible|yesno:"Available,Not Available" }}
+                        <li><i class="fas fa-check-circle {% if house.disponible %}text-success{% else %}text-danger{% endif %}"></i> 
+                            {% if house.disponible %}Available{% else %}Not Available{% endif %}
                         </li>
                     </ul>
                     <div class="btn-group">
-                        <a href="{% url 'edit_house' house.id %}" class="btn btn-outline-primary">
-                            <i class="fas fa-edit"></i> Edit
-                        </a>
-                        <a href="{% url 'delete_house' house.id %}" class="btn btn-outline-danger" 
-                           onclick="return confirm('Are you sure you want to delete this property?')">
-                            <i class="fas fa-trash"></i> Delete
-                        </a>
+                        <a href="{% url 'edit_house' house.id %}" class="btn btn-outline-primary">Edit</a>
+                        <a href="{% url 'delete_house' house.id %}" class="btn btn-outline-danger">Delete</a>
                     </div>
                 </div>
             </div>
@@ -39,8 +33,7 @@
         {% empty %}
         <div class="col-12">
             <div class="alert alert-info">
-                You haven't added any properties yet. 
-                <a href="{% url 'add_house' %}" class="alert-link">Add your first property</a>
+                You haven't added any properties yet.
             </div>
         </div>
         {% endfor %}

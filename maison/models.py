@@ -8,7 +8,8 @@ class Maison(models.Model):
     prix_par_nuit = models.DecimalField(max_digits=10, decimal_places=2)
     disponible = models.BooleanField(default=True)
     proprietaire = models.ForeignKey(UserProfile, on_delete=models.CASCADE, limit_choices_to={'role': 'proprietaire'})
-
+    image = models.ImageField(upload_to='houses/', null=True, blank=True)  # Add this line
+    
     def __str__(self):
         return self.titre
 

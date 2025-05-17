@@ -21,14 +21,16 @@ def my_houses(request):
 @login_required
 def add_house(request):
     if request.method == 'POST':
-        form = MaisonForm(request.POST)
+        form = MaisonForm(request.POST, request.FILES)
         if form.is_valid():
             house = form.save(commit=False)
             house.proprietaire = request.user.userprofile
             house.save()
             messages.success(request, 'Property added successfully!')
             return redirect('my_houses')
-    return render(request, 'maison/add_house.html')
+    else:
+        form = MaisonForm()
+    return render(request, 'maison/add_house.html', {'form': form})
 
 @login_required
 def my_houses(request):

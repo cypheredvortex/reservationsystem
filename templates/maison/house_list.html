@@ -7,6 +7,11 @@
         {% for house in houses %}
         <div class="col-md-4 mb-4">
             <div class="card h-100">
+                {% if house.image %}
+                    <img src="{{ house.image.url }}" class="card-img-top" alt="{{ house.titre }}" style="height: 200px; object-fit: cover;">
+                {% else %}
+                    <img src="/static/images/default-house.jpg" class="card-img-top" alt="Default house image" style="height: 200px; object-fit: cover;">
+                {% endif %}
                 <div class="card-body">
                     <h5 class="card-title">{{ house.titre }}</h5>
                     <p class="card-text">{{ house.description|truncatewords:30 }}</p>

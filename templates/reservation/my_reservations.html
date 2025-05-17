@@ -7,6 +7,11 @@
         {% for reservation in reservations %}
         <div class="col-md-6 mb-4">
             <div class="card">
+                {% if reservation.maison.image %}
+                    <img src="{{ reservation.maison.image.url }}" class="card-img-top" alt="{{ reservation.maison.titre }}" style="height: 200px; object-fit: cover;">
+                {% else %}
+                    <img src="/static/images/default-house.jpg" class="card-img-top" alt="Default house image" style="height: 200px; object-fit: cover;">
+                {% endif %}
                 <div class="card-body">
                     <h5 class="card-title">{{ reservation.maison.titre }}</h5>
                     <ul class="list-unstyled">

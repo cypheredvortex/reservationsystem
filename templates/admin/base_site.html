@@ -1,16 +1,20 @@
 {% extends "admin/base.html" %}
 {% load static %}
 
-{% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+{% block title %}{{ title }} | {{ site_title|default:_('Home Reservation Admin') }}{% endblock %}
 
 {% block extrastyle %}
 <link rel="stylesheet" type="text/css" href="{% static 'admin/css/custom_admin.css' %}">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 {% endblock %}
 
 {% block branding %}
 <h1 id="site-name">
+    <i class="fas fa-home"></i>
     <a href="{% url 'admin:index' %}">
-        Reservation System Administration
+        Home Reservation Administration
     </a>
 </h1>
 {% endblock %}
+
+{% block nav-global %}{% endblock %}

@@ -1,24 +1,23 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container mt-5">
+<div class="container">
     <div class="row">
-        <div class="col-md-8 offset-md-2">
-            <div class="card">
-                <div class="card-body">
-                    <h2 class="card-title">{{ house.titre }}</h2>
-                    <p class="card-text">{{ house.description }}</p>
-                    <p><strong>Address:</strong> {{ house.adresse }}</p>
-                    <p><strong>Price per night:</strong> ${{ house.prix_par_nuit }}</p>
-                    <p><strong>Status:</strong> {% if house.disponible %}Available{% else %}Not Available{% endif %}</p>
-                    
-                    {% if user.is_authenticated and user.userprofile.role == 'client' and house.disponible %}
-                    <a href="{% url 'create_reservation' house.id %}" class="btn btn-primary">Make Reservation</a>
-                    {% endif %}
-                    
-                    <a href="{% url 'house_list' %}" class="btn btn-secondary">Back to List</a>
-                </div>
-            </div>
+        <div class="col-md-8">
+            {% if house.image %}
+                <img src="{{ house.image.url }}" class="img-fluid rounded" alt="{{ house.titre }}">
+            {% else %}
+                <img src="/static/images/default-house.jpg" class="img-fluid rounded" alt="Default house image">
+            {% endif %}
+            <h2 class="mt-4">{{ house.titre }}</h2>
+            <p class="text-muted">{{ house.adresse }}</p>
+            <p>{{ house.description }}</p>
+            <p class="h4">€{{ house.prix_par_nuit }} per night</p>
+            {% if house.disponible %}
+                <a href="{% url 'create_reservation' house.id %}" class="btn btn-primary">Book Now</a>
+            {% else %}
+                <button class="btn btn-secondary" disabled>Not Available</button>
+            {% endif %}
         </div>
     </div>
 </div>
