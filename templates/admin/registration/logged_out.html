@@ -1,0 +1,14 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block content %}
+<p>{% trans "Thanks for spending some time with the site today." %}</p>
+<script>
+    // Redirect to homepage after a brief delay
+    setTimeout(function() {
+        window.location.href = '/';
+    }, 1000);
+</script>
+{% endblock %}

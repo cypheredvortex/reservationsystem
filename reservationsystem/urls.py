@@ -7,6 +7,7 @@ from user import views as user_views
 from maison import views as maison_views
 from reservation import views as reservation_views
 from paiement import views as paiement_views
+from django.urls import include
 
 urlpatterns = [
     # Admin URLs
@@ -40,9 +41,11 @@ urlpatterns = [
     path('payments/process/<int:reservation_id>/', paiement_views.process_payment, name='process_payment'),
     path('payments/history/', paiement_views.payment_history, name='payment_history'),
     path('payments/confirmation/<int:payment_id>/', paiement_views.payment_confirmation, name='payment_confirmation'),
+    path('messaging/', include('messaging.urls')),
 ]
-
+    
 # Serve static and media files during development
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

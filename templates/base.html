@@ -9,81 +9,278 @@
     {% load static %}
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
     <style>
-        .navbar-custom { background-color: #2c3e50; }
-        .navbar-custom .navbar-brand, .navbar-custom .nav-link { color: white; }
-        .navbar-custom .nav-link:hover { color: #3498db; }
-        .card { box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-        .btn-custom { background-color: #3498db; border-color: #3498db; }
-        .btn-custom:hover { background-color: #2980b9; border-color: #2980b9; }
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --text-color: #2c3e50;
+            --light-bg: #f8f9fa;
+        }
+        
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            flex: 1;
+        }
+
+        .navbar-custom {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .navbar-custom .navbar-brand, 
+        .navbar-custom .nav-link {
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar-custom .nav-link:hover {
+            color: #ecf0f1;
+            transform: translateY(-2px);
+        }
+        
+        .card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .btn-custom {
+            background: linear-gradient(135deg, var(--secondary-color), #2980b9);
+            border: none;
+            border-radius: 8px;
+            padding: 10px 25px;
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+            background: linear-gradient(135deg, #2980b9, var(--secondary-color));
+        }
+        
+        .modal-content {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .modal-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 15px 15px 0 0;
+        }
+        
+        .form-control {
+            border-radius: 8px;
+            border: 2px solid #eee;
+            padding: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+        }
+        
+        .alert {
+            border-radius: 10px;
+            border: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        footer {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-custom mb-4">
-        <div class="container">
-            <a class="navbar-brand" href="/">Home Reservation</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    {% if user.is_authenticated %}
-                        {% if user.userprofile.role == 'client' %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'house_list' %}">Browse Houses</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'my_reservations' %}">My Reservations</a>
-                            </li>
-                        {% elif user.userprofile.role == 'proprietaire' %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'add_house' %}">Add House</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'my_houses' %}">My Houses</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'received_reservations' %}">Reservations</a>
-                            </li>
-                        {% elif user.is_superuser %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'admin:index' %}">Admin Panel</a>
-                            </li>
-                        {% endif %}
+<nav class="navbar navbar-expand-lg navbar-custom mb-4">
+    <div class="container">
+        <a class="navbar-brand" href="/">Home Reservation</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                {% if user.is_authenticated %}
+                    {% if user.userprofile.role == 'client' %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'logout_view' %}">Logout</a>
-                        </li>
-                    {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'login' %}">Login</a>
+                            <a class="nav-link" href="{% url 'house_list' %}">Browse Houses</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'register' %}">Register</a>
+                            <a class="nav-link" href="{% url 'my_reservations' %}">My Reservations</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'sent_messages' %}">Mes Messages</a>
+                      </li>
+                    {% elif user.userprofile.role == 'proprietaire' %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'add_house' %}">Add House</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'my_houses' %}">My Houses</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'received_reservations' %}">Reservations</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'inbox' %}">Mes Messages</a>
+                        </li>
+                    {% elif user.is_superuser %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'admin:index' %}">Admin Panel</a>
                         </li>
                     {% endif %}
-                </ul>
-            </div>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout_view' %}">Logout</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="modal" data-bs-target="#signupModal">Register</a>
+                    </li>
+                {% endif %}
+            </ul>
         </div>
-    </nav>
-
-    <div class="container">
-        {% if messages %}
-            {% for message in messages %}
-                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-                    {{ message }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            {% endfor %}
-        {% endif %}
-        
-        {% block content %}{% endblock %}
     </div>
+</nav>
 
-    <footer class="mt-5 py-3 bg-light">
-        <div class="container text-center">
-            <p class="mb-0">&copy; 2024 Home Reservation. All rights reserved.</p>
+<div class="container">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {% block content %}{% endblock %}
+</div>
+
+<footer class="mt-5 py-3 bg-light">
+    <div class="container text-center">
+        <p class="mb-0">&copy; 2024 Home Reservation. All rights reserved.</p>
+    </div>
+</footer>
+
+<!-- Login Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form method="POST" action="{% url 'login' %}">
+                {% csrf_token %}
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="fas fa-sign-in-alt me-2"></i>Login</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="mb-4">
+                        <label for="login-username" class="form-label">Username</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                            <input type="text" class="form-control" id="login-username" name="username" required>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="login-password" class="form-label">Password</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                            <input type="password" class="form-control" id="login-password" name="password" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-custom w-100 py-2">
+                        <i class="fas fa-sign-in-alt me-2"></i>Login
+                    </button>
+                </div>
+            </form>
         </div>
-    </footer>
+    </div>
+</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Signup Modal -->
+<div class="modal fade" id="signupModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form method="POST" action="{% url 'register' %}">
+                {% csrf_token %}
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="fas fa-user-plus me-2"></i>Sign Up</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="mb-3">
+                        <label for="signup-username" class="form-label">Username</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                            <input type="text" class="form-control" id="signup-username" name="username" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="signup-email" class="form-label">Email</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                            <input type="email" class="form-control" id="signup-email" name="email" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="signup-password1" class="form-label">Password</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                            <input type="password" class="form-control" id="signup-password1" name="password1" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="signup-password2" class="form-label">Confirm Password</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                            <input type="password" class="form-control" id="signup-password2" name="password2" required>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="signup-role" class="form-label">I want to:</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-user-tag"></i></span>
+                            <select name="role" class="form-control" id="signup-role" required>
+                                <option value="client">Book Properties</option>
+                                <option value="proprietaire">List My Properties</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-custom w-100 py-2">
+                        <i class="fas fa-user-plus me-2"></i>Sign Up
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

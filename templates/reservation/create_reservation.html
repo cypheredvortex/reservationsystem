@@ -1,0 +1,55 @@
+{# templates/reservation/create_reservation.html #}
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container py-4">
+
+  {# Ligne titre + contact owner #}
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Make a Reservation</h1>
+    <!-- Formulaire contact propriétaire -->
+    <form action="" method="post" class="d-flex align-items-center">
+      {% csrf_token %}
+      {{ message_form.content }}
+      <button
+        type="submit"
+        name="contact"
+        class="btn btn-outline-secondary ms-2"
+      >
+        Contact Owner
+      </button>
+    </form>
+  </div>
+
+  {# Carte d’info sur la maison #}
+  <div class="card mb-4 p-3">
+    <h3>{{ house.titre }}</h3>
+    <p>Price per night: {{ house.prix }} €</p>
+  </div>
+
+  {# Formulaire de réservation #}
+  <form action="" method="post">
+    {% csrf_token %}
+    {{ res_form.start_date.label_tag }}  
+    {{ res_form.start_date }}
+    {{ res_form.end_date.label_tag }}  
+    {{ res_form.end_date }}
+    <button
+      type="submit"
+      name="reserve"
+      class="btn btn-primary mt-3"
+    >
+      Make Reservation
+    </button>
+  </form>
+
+  {# affichage des messages flash #}
+  {% if messages %}
+    {% for m in messages %}
+      <div class="alert alert-{{ m.tags }} mt-3">{{ m }}</div>
+    {% endfor %}
+  {% endif %}
+
+</div>
+{% endblock %}

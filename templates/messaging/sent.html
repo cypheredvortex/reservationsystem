@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container py-5">
+  <h2 class="mb-4">Mes Messages Envoyés</h2>
+
+  {% if sent_messages %}
+    <div class="row gy-4">
+      {% for msg in sent_messages %}
+        <div class="col-12">
+          <div class="card shadow-sm">
+            <div class="card-header d-flex justify-content-between">
+              <div>
+                <span class="fw-bold">À :</span> {{ msg.receiver.username }}
+                <small class="text-muted ms-3">{{ msg.created_at|date:"d/m/Y H:i" }}</small>
+              </div>
+              <!-- Lien vers la nouvelle view conversation -->
+              <a href="{% url 'conversation' msg.id %}"
+                 class="btn btn-sm btn-outline-primary">
+                Voir / Répondre
+              </a>
+            </div>
+            <div class="card-body">
+              <p class="mb-2">{{ msg.content }}</p>
+              <p class="fst-italic text-secondary mb-0">Pour la maison : {{ msg.maison.titre }}</p>
+            </div>
+
+            {% if msg.replies.exists %}
+              <ul class="list-group list-group-flush">
+                {% for rep in msg.replies.all %}
+                  <li class="list-group-item bg-light ps-4">
+                    <div class="d-flex justify-content-between">
+                      <span class="fw-bold">Réponse de :</span> {{ rep.sender.username }}
+                      <small class="text-muted">{{ rep.created_at|date:"d/m/Y H:i" }}</small>
+                    </div>
+                    <p class="mt-2 mb-0">{{ rep.content }}</p>
+                  </li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="alert alert-info">Vous n’avez envoyé aucun message.</div>
+  {% endif %}
+</div>
+{% endblock %}

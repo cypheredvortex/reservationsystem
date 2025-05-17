@@ -2,55 +2,56 @@
 
 {% block content %}
 <!-- Hero Section with Video/Image Background -->
-<div class="hero-section position-relative bg-primary text-white py-5">
-    <div class="container">
+<div class="hero-section position-relative bg-primary text-white py-5" style="background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1470&q=80') no-repeat center center; background-size: cover;">
+    <div class="container position-relative" style="z-index: 2;">
         <div class="row align-items-center">
             <div class="col-lg-6">
-                <h1 class="display-4 fw-bold">Find Your Perfect Home Away From Home</h1>
-                <p class="lead mb-4">Experience comfortable and reliable house rentals with our trusted reservation platform.</p>
+                <h1 class="display-4 fw-bold animate__animated animate__fadeInDown">Find Your Perfect Home Away From Home</h1>
+                <p class="lead mb-4 animate__animated animate__fadeInUp">Experience comfortable and reliable house rentals with our trusted reservation platform.</p>
                 {% if not user.is_authenticated %}
-                    <div class="d-flex gap-3">
-                        <button class="btn btn-light btn-lg" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
-                        <button class="btn btn-outline-light btn-lg" data-bs-toggle="modal" data-bs-target="#signupModal">Sign Up</button>
+                    <div class="d-flex gap-3 animate__animated animate__fadeInUp animate__delay-1s">
+                        <button class="btn btn-light btn-lg shadow-sm" data-bs-toggle="modal" data-bs-target="#loginModal" aria-label="Login Button">Login</button>
+                        <button class="btn btn-outline-light btn-lg shadow-sm" data-bs-toggle="modal" data-bs-target="#signupModal" aria-label="Sign Up Button">Sign Up</button>
                     </div>
                 {% endif %}
             </div>
-            <div class="col-lg-6">
-                <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6" alt="Beautiful House" class="img-fluid rounded-3 shadow">
+            <div class="col-lg-6 text-center">
+                <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=800&q=80" alt="Beautiful House Exterior" class="img-fluid rounded-3 shadow-lg" loading="lazy" style="max-height: 400px; object-fit: cover;">
             </div>
         </div>
     </div>
+    <div class="overlay" style="position:absolute; inset:0; background: rgba(0,0,0,0.45); z-index:1;"></div>
 </div>
 
 <!-- How It Works Section -->
-<div class="container my-5">
+<div class="container my-5" id="how-it-works" tabindex="-1">
     <h2 class="text-center mb-5">How It Works</h2>
     <div class="row g-4">
         <div class="col-md-4">
-            <div class="card h-100 border-0 shadow-sm">
-                <div class="card-body text-center">
+            <div class="card h-100 border-0 shadow-sm text-center hover-shadow">
+                <div class="card-body">
                     <div class="display-4 text-primary mb-3">1</div>
-                    <i class="fas fa-search fa-3x mb-3 text-primary"></i>
+                    <i class="fas fa-search fa-3x mb-3 text-primary" aria-hidden="true"></i>
                     <h5 class="card-title">Search Houses</h5>
                     <p class="card-text">Browse our extensive collection of quality homes available for rent.</p>
                 </div>
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card h-100 border-0 shadow-sm">
-                <div class="card-body text-center">
+            <div class="card h-100 border-0 shadow-sm text-center hover-shadow">
+                <div class="card-body">
                     <div class="display-4 text-primary mb-3">2</div>
-                    <i class="fas fa-calendar-alt fa-3x mb-3 text-primary"></i>
+                    <i class="fas fa-calendar-alt fa-3x mb-3 text-primary" aria-hidden="true"></i>
                     <h5 class="card-title">Make Reservation</h5>
                     <p class="card-text">Choose your dates and book your preferred accommodation securely.</p>
                 </div>
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card h-100 border-0 shadow-sm">
-                <div class="card-body text-center">
+            <div class="card h-100 border-0 shadow-sm text-center hover-shadow">
+                <div class="card-body">
                     <div class="display-4 text-primary mb-3">3</div>
-                    <i class="fas fa-home fa-3x mb-3 text-primary"></i>
+                    <i class="fas fa-home fa-3x mb-3 text-primary" aria-hidden="true"></i>
                     <h5 class="card-title">Enjoy Your Stay</h5>
                     <p class="card-text">Experience a comfortable stay in your chosen accommodation.</p>
                 </div>
@@ -63,31 +64,31 @@
 <div class="bg-light py-5">
     <div class="container">
         <h2 class="text-center mb-5">Why Choose Us</h2>
-        <div class="row g-4">
+        <div class="row g-4 text-center">
             <div class="col-md-3">
-                <div class="text-center">
-                    <i class="fas fa-shield-alt fa-3x mb-3 text-primary"></i>
+                <div>
+                    <i class="fas fa-shield-alt fa-3x mb-3 text-primary" aria-hidden="true"></i>
                     <h5>Secure Booking</h5>
                     <p>Safe and encrypted payment processing</p>
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="text-center">
-                    <i class="fas fa-clock fa-3x mb-3 text-primary"></i>
+                <div>
+                    <i class="fas fa-clock fa-3x mb-3 text-primary" aria-hidden="true"></i>
                     <h5>24/7 Support</h5>
                     <p>Round-the-clock customer assistance</p>
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="text-center">
-                    <i class="fas fa-star fa-3x mb-3 text-primary"></i>
+                <div>
+                    <i class="fas fa-star fa-3x mb-3 text-primary" aria-hidden="true"></i>
                     <h5>Verified Properties</h5>
                     <p>Quality checked accommodations</p>
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="text-center">
-                    <i class="fas fa-percent fa-3x mb-3 text-primary"></i>
+                <div>
+                    <i class="fas fa-percent fa-3x mb-3 text-primary" aria-hidden="true"></i>
                     <h5>Best Prices</h5>
                     <p>Competitive rates and special offers</p>
                 </div>
@@ -96,24 +97,103 @@
     </div>
 </div>
 
+<!-- Testimonials Section -->
+<div class="container my-5">
+    <h2 class="text-center mb-5">What Our Customers Say</h2>
+    <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel" aria-label="Customer testimonials">
+        <div class="carousel-inner text-center">
+            <div class="carousel-item active">
+                <blockquote class="blockquote">
+                    <p class="mb-4">"The platform made booking my vacation home so easy and hassle-free! Highly recommend."</p>
+                    <footer class="blockquote-footer">Sarah J.</footer>
+                </blockquote>
+            </div>
+            <div class="carousel-item">
+                <blockquote class="blockquote">
+                    <p class="mb-4">"Great selection of homes and excellent customer support 24/7."</p>
+                    <footer class="blockquote-footer">Mark T.</footer>
+                </blockquote>
+            </div>
+            <div class="carousel-item">
+                <blockquote class="blockquote">
+                    <p class="mb-4">"Verified properties gave me peace of mind, and the prices were unbeatable."</p>
+                    <footer class="blockquote-footer">Jessica P.</footer>
+                </blockquote>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev" aria-label="Previous testimonial">
+            <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next" aria-label="Next testimonial">
+            <span class="carousel-control-next-icon"></span>
+        </button>
+    </div>
+</div>
+
+<!-- FAQ Section -->
+<div class="container my-5">
+    <h2 class="text-center mb-5">Frequently Asked Questions</h2>
+    <div class="accordion" id="faqAccordion">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="faqHeadingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseOne" aria-expanded="true" aria-controls="faqCollapseOne">
+                    How do I make a reservation?
+                </button>
+            </h2>
+            <div id="faqCollapseOne" class="accordion-collapse collapse show" aria-labelledby="faqHeadingOne" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    Simply browse available houses, select your dates, and complete the booking through our secure platform.
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="faqHeadingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseTwo" aria-expanded="false" aria-controls="faqCollapseTwo">
+                    What payment methods do you accept?
+                </button>
+            </h2>
+            <div id="faqCollapseTwo" class="accordion-collapse collapse" aria-labelledby="faqHeadingTwo" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    We accept all major credit cards, PayPal, and other secure online payment methods.
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="faqHeadingThree">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseThree" aria-expanded="false" aria-controls="faqCollapseThree">
+                    Can I list my own property for rent?
+                </button>
+            </h2>
+            <div id="faqCollapseThree" class="accordion-collapse collapse" aria-labelledby="faqHeadingThree" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    Yes! Sign up as a property owner and start listing your properties to reach thousands of potential renters.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Newsletter Signup Section -->
+
+
 <!-- Login Modal -->
-<div class="modal fade" id="loginModal" tabindex="-1">
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Login</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                <h5 class="modal-title" id="loginModalLabel">Login</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close Login Modal"></button>
             </div>
             <div class="modal-body">
                 <form method="POST" action="{% url 'login' %}">
                     {% csrf_token %}
                     <div class="mb-3">
                         <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="username" name="username" required>
+                        <input type="text" class="form-control" id="username" name="username" required aria-required="true">
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" required>
+                        <input type="password" class="form-control" id="password" name="password" required aria-required="true">
                     </div>
                     <button type="submit" class="btn btn-primary w-100">Login</button>
                 </form>
@@ -123,35 +203,35 @@
 </div>
 
 <!-- Signup Modal -->
-<div class="modal fade" id="signupModal" tabindex="-1">
+<div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Sign Up</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                <h5 class="modal-title" id="signupModalLabel">Sign Up</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close Signup Modal"></button>
             </div>
             <div class="modal-body">
                 <form method="POST" action="{% url 'register' %}">
                     {% csrf_token %}
                     <div class="mb-3">
-                        <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control" name="username" required>
+                        <label for="signupUsername" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="signupUsername" name="username" required aria-required="true">
                     </div>
                     <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" name="email" required>
+                        <label for="signupEmail" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="signupEmail" name="email" required aria-required="true">
                     </div>
                     <div class="mb-3">
                         <label for="password1" class="form-label">Password</label>
-                        <input type="password" class="form-control" name="password1" required>
+                        <input type="password" class="form-control" id="password1" name="password1" required aria-required="true">
                     </div>
                     <div class="mb-3">
                         <label for="password2" class="form-label">Confirm Password</label>
-                        <input type="password" class="form-control" name="password2" required>
+                        <input type="password" class="form-control" id="password2" name="password2" required aria-required="true">
                     </div>
                     <div class="mb-3">
                         <label for="role" class="form-label">I want to:</label>
-                        <select name="role" class="form-control" required>
+                        <select id="role" name="role" class="form-control" required aria-required="true">
                             <option value="client">Book Properties</option>
                             <option value="proprietaire">List My Properties</option>
                         </select>
@@ -170,14 +250,14 @@
         <div class="col-md-6 offset-md-3 text-center">
             <h2>Welcome, {{ user.first_name|default:user.username }}!</h2>
             {% if user.userprofile.role == 'client' %}
-                <div class="mt-4">
-                    <a href="{% url 'house_list' %}" class="btn btn-primary btn-lg px-4">Browse Houses</a>
-                    <a href="{% url 'my_reservations' %}" class="btn btn-outline-primary btn-lg px-4">My Reservations</a>
+                <div class="mt-4 d-flex justify-content-center gap-3 flex-wrap">
+                    <a href="{% url 'house_list' %}" class="btn btn-primary btn-lg px-4 shadow-sm">Browse Houses</a>
+                    <a href="{% url 'my_reservations' %}" class="btn btn-outline-primary btn-lg px-4 shadow-sm">My Reservations</a>
                 </div>
             {% elif user.userprofile.role == 'proprietaire' %}
-                <div class="mt-4">
-                    <a href="{% url 'add_house' %}" class="btn btn-primary btn-lg px-4">Add New House</a>
-                    <a href="{% url 'my_houses' %}" class="btn btn-outline-primary btn-lg px-4">My Properties</a>
+                <div class="mt-4 d-flex justify-content-center gap-3 flex-wrap">
+                    <a href="{% url 'add_house' %}" class="btn btn-primary btn-lg px-4 shadow-sm">Add New House</a>
+                    <a href="{% url 'my_houses' %}" class="btn btn-outline-primary btn-lg px-4 shadow-sm">My Properties</a>
                 </div>
             {% endif %}
         </div>
@@ -185,4 +265,26 @@
 </div>
 {% endif %}
 
+<!-- Back to Top Button -->
+<button id="backToTopBtn" class="btn btn-primary position-fixed" 
+        style="bottom: 20px; right: 20px; display: none;" 
+        aria-label="Back to top">
+    ↑ Top
+</button>
+
+<script>
+  // Show button when user scrolls down 100px
+  const backToTopBtn = document.getElementById('backToTopBtn');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 100) {
+      backToTopBtn.style.display = 'block';
+    } else {
+      backToTopBtn.style.display = 'none';
+    }
+  });
+
+  backToTopBtn.addEventListener('click', () => {
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  });
+</script>
 {% endblock %}

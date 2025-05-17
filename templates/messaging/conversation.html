@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container py-5">
+
+  <h2 class="mb-4">
+    Conversation avec
+    {% if user == original.sender %}
+      {{ original.receiver.username }}
+    {% else %}
+      {{ original.sender.username }}
+    {% endif %}
+  </h2>
+
+  {# Message initial #}
+  <div class="card mb-4 shadow-sm">
+    <div class="card-body">
+      <div class="d-flex justify-content-between">
+        <strong>{{ original.sender.username }}</strong>
+        <small class="text-muted">{{ original.created_at|date:"d/m/Y H:i" }}</small>
+      </div>
+      <p class="mt-2">{{ original.content }}</p>
+      <hr>
+      <em>Pour la maison : {{ original.maison.titre }}</em>
+    </div>
+  </div>
+
+  {# Fil de réponses #}
+  {% for rep in thread %}
+    <div class="card mb-3 ms-4 shadow-sm bg-light">
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <strong>{{ rep.sender.username }}</strong>
+          <small class="text-muted">{{ rep.created_at|date:"d/m/Y H:i" }}</small>
+        </div>
+        <p class="mt-2">{{ rep.content }}</p>
+      </div>
+    </div>
+  {% empty %}
+    <p class="text-muted">Pas encore de réponses.</p>
+  {% endfor %}
+
+  {# Formulaire de réponse, pour le client OU le propriétaire #}
+  {% if reply_form %}
+    <div class="mt-5">
+      <h5>Votre réponse</h5>
+      <form method="post">
+        {% csrf_token %}
+        {{ reply_form.content }}
+        <button type="submit" class="btn btn-primary mt-2">Envoyer</button>
+      </form>
+    </div>
+  {% endif %}
+
+</div>
+{% endblock %}
